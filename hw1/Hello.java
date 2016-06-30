@@ -2,7 +2,7 @@
 import java.util.Scanner;
 
 public class Hello{
-  public static void main(String[] arrgs)
+  public static void main(String[] args)
   {
     System.out.print("Введите, пожалуйста, Ваше имя: ");
 
