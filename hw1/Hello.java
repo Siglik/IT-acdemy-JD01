@@ -1,3 +1,4 @@
+/* encoding cp1251 */
 import java.util.Scanner;
 
 public class Hello{
