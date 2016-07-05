@@ -10,11 +10,21 @@ public class DivideNumbers {
 		
 		Scanner input = new Scanner(System.in);
 		
-		System.out.println("Введите делимое и делитель: ");
-		double number1 = input.nextDouble();
-		double number2 = input.nextDouble();
-		input.close();
 
-		System.out.println( "Частное: " + number1 / number2);
+		
+		System.out.println("Введите делимое и делитель: ");
+		double dividend = input.nextDouble();
+		double divisor = input.nextDouble();
+		input.close();
+		
+		//check divisor to exclude a division by zero
+		if (divisor == 0)
+		{
+			System.out.println("Делитель не может быть равен 0.");
+		} 
+		else
+		{
+			System.out.println( "Частное: " + dividend / divisor);
+		}
 	}
 }
