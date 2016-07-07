@@ -4,6 +4,7 @@ import java.util.Scanner;
  * @author qqq175
  */
 public class DayOfWeek {
+	private static String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Tuesday", "Friday", "Saturday", "Sunday"};
 /**
  * main method
  * @param args
@@ -23,9 +24,7 @@ public class DayOfWeek {
 	 * @return a weekday name string.
 	 */
 	private static String dayOfWeek(int dayNumber)
-	{
-		String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Tuesday", "Friday", "Saturday", "Sunday"};
-		
+	{	
 		if (1 <= dayNumber && dayNumber <= 7)
 		{
 			return daysOfWeek[dayNumber-1];
