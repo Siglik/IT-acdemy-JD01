@@ -103,8 +103,8 @@ private static boolean isYearLeap(int year)
 
 /**
  * Return a weekday name equivalent to number of the day.
- * @param dayNumber is number from 1 to 7
- * @return a weekday name string or empty string if dayNumber not in range from 1 to 7
+ * @param dayNumber is number from 0 to 6
+ * @return a weekday name string or empty string if dayNumber not in range from 0 to 6
  */
 	private static String dayOfWeek(int dayNumber) {
 		if (0 <= dayNumber && dayNumber <= 6) {
