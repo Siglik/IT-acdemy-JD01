@@ -5,8 +5,9 @@ import java.util.Scanner;
  */
 
 /**
+ * Calculate day of week by date.
  * @author qqq175
- *
+ * 
  */
 public class DateToDay {
 	private static String[] daysOfWeek = {"Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"};
