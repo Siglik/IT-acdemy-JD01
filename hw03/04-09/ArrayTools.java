@@ -8,7 +8,7 @@ public class ArrayTools {
 
 	public static void main(String[] args) {
 		int[] intArray15 = {15, 0, 12, 3, -55, -12, 31, 0, 16, 99, 7, 0, 55, -1, -49}; //initialize 15 elements array
-		int[] intArray10 = {-2, 122, -10, 0, 0, -5, 17, 12, 0, -9}; 									//and 10 elements array
+		int[] intArray10 = {-2, 122, -10, 0, 0, -5, 17, 12, 0, -9}; 				//and 10 elements array
 		
 		System.out.println("Начальный массив из " + intArray15.length + " элементов:\n\t"+ Arrays.toString( intArray15)); 	//print initial array for exercises 4-5
 		/* exercise 4 */
