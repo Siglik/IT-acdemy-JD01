@@ -5,7 +5,7 @@ import java.util.Arrays;
  * @author qqq175
  *
  */
-public class Exercise8 {
+public class ArrayProductUntilZero {
 
 	public static void main(String[] args) {
 		int[] intArray = {-2, 77, -10, 0, 12, -5, 17, 12, 0, -9}; 				//10 elements array

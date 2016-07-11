@@ -5,7 +5,7 @@ import java.util.Arrays;
  * @author qqq175
  *
  */
-public class Exercise7 {
+public class ArraySumUntilZero {
 
 	public static void main(String[] args) {
 		int[] intArray = {-19, 122, -10, 7, 0, -5, 17, 12, 1, -9}; 				//10 elements array

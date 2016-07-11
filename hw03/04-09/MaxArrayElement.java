@@ -6,7 +6,7 @@ import java.util.Arrays;
  * @author qqq175
  *
  */
-public class Exercise5 {
+public class MaxArrayElement {
 
 	public static void main(String[] args) {
 		int[] intArray = { 15, 0, 12, 3, -55, -12, 31, 0, 16, 99, 7, 0, 55, -1, -49 }; // initialize array

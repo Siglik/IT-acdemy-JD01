@@ -5,7 +5,7 @@ import java.util.Arrays;
  * @author qqq175
  *
  */
-public class Exercise9 {
+public class ArrayZeroShifter {
 
 	public static void main(String[] args) {
 		int[] intArray = {-2, 122, -10, 0, 0, -5, 17, 12, 0, -9}; 				//10 elements array
