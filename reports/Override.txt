@@ -1,1 +1,41 @@
 Часть 2. Переопределение (override) методов
+
+Напишем родительский класс
+public class Super {
+	
+	
+	static void test(){
+		System.out.println("void : void");
+	}
+	
+	public double test(int i, int j){
+		System.out.print("double : int., nt");
+		return (double)i/j;
+	}
+	
+	protected void test(int i){
+		System.out.println("void : int = " + i);
+	}
+	
+	private static String test(long l){
+		return "String : long = " + l;
+	}
+}
+
+Унаследуем от него дочерний:
+
+public class Main extends Super{
+	
+	static class A{}
+	static class B extends A{}
+	public static void main(String[] args){
+		Main t = new Main();
+		
+		test();
+		t.test(5);
+		System.out.println("double : byte = " + t.test(4,2));
+		System.out.println(test(5l));
+	}
+}
+
+Возникает ошибка при вызове: test(5l) - т.к. медод test(long l) приватный

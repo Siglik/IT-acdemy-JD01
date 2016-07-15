@@ -25,6 +25,8 @@
 	}
 
 main:
+		Main t = new Main();
+
 		test();
 		t.test(5);
 		System.out.println("double : byte = " + t.test(4,2));
@@ -51,7 +53,6 @@ main:
 		Результат: Ошибка времени комиляции – Duplicate method.
 5. изменив все что в п.1-3 одновременно
 		Результат: Ошибка времени комиляции – Duplicate method.
-
 
 Вывод:
 
