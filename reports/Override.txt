@@ -101,7 +101,7 @@ Main:
 Description	Resource	Path	Location	Type
 Cannot reduce the visibility of the inherited method from Super
 
-Делаем вывод что модификаторы доступа можно переопределять только в сторону увеличкния видимости ((default)->public->protected).
+Делаем вывод что модификаторы доступа можно переопределять только в сторону увеличкния видимости ((default)->protected->public).
 
 ИТОГО КРАТКО:
   -модификаторы доступа можно переопределять только в сторону увеличкния видимости ((default)->public->protected).
