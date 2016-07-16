@@ -6,17 +6,26 @@ import java.util.Arrays;
  * @author qqq175
  */
 public class MatrixColumnsSorter {
-	private static int[][] matrix = { { 31, 15, 12, 22, 2, 14 }, 
-															{ 10, 17, 8, 33 , 3, 12},
-															{ 4, 18, 19, 27 , 4, 0},
-															{ 32, 17, 31, 25 , 5, 26},
-															{17, 25, 45, 41, 19, 35},
-															{39, 25, 47, 24, -2, 37}};
+//	private static int[][] matrix = { { 31, 15, 12, 22, 2, 14 }, 
+//															{ 10, 17, 8, 33 , 3, 12},
+//															{ 4, 18, 19, 27 , 4, 0},
+//															{ 32, 17, 31, 25 , 5, 26},
+//															{17, 25, 45, 41, 19, 35},
+//															{39, 25, 47, 24, -2, 37}};
+	
+	static int SIZE = 20;
+	static int[][] matrix = new int[SIZE][SIZE];
+	
 /**
  * Main class
  * @param args
  */
 	public static void main(String[] args) {
+		for(int i=0; i < SIZE; i++)
+			for(int j=0; j< SIZE; j++)
+				matrix[i][j] = (int)(Math.random()*SIZE*SIZE + (SIZE/5)*i);  //fill matrix by random values
+		System.out.println("initial matrix:");
+		MatrixSorterI.printMatrix(matrix);
 		long start = System.currentTimeMillis();  //made some benchmark
 		Node currentNode;
 		int[] order = null;	
@@ -32,7 +41,7 @@ public class MatrixColumnsSorter {
 			matrix = MatrixSorterI.reorderMatrix(matrix, order);   //if order isn't - reorder matrix
 			MatrixSorterI.printMatrix(matrix);
 		} else {
-			System.out.print("Указанную матрицу невозможно упорядочить согласно условиям задачи.");  //if order is null reorder is impossible
+			System.out.print("Указанную матрицу невозможно упорядочить согласно условиям задачи. (done in "+ (System.currentTimeMillis()-start) + " ms)\n");  //if order is null reorder is impossible
 		}
 }
 

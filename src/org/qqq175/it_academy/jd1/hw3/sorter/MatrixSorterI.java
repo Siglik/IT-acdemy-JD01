@@ -11,12 +11,19 @@ public class MatrixSorterI {
  * @param args
  */
 	public static void main(String[] args) {
-		int[][] matrix =  { { 31, 15, 12, 22, 2, 14 }, 
-					{ 10, 17, 8, 33 , 3, 12},
-					{ 4, 18, 19, 27 , 4, 0},
-					{ 32, 17, 31, 25 , 5, 26},
-					{17, 25, 45, 41, 19, 35},
-					{39, 25, 47, 24, -2, 37}};
+//		int[][] matrix =  { { 31, 15, 12, 22, 2, 14 }, 
+//					{ 10, 17, 8, 33 , 3, 12},
+//					{ 4, 18, 19, 27 , 4, 0},
+//					{ 32, 17, 31, 25 , 5, 26},
+//					{17, 25, 45, 41, 19, 35},
+//					{39, 25, 47, 24, -2, 37}};
+		int SIZE = 20;
+		int[][] matrix = new int[SIZE][SIZE];
+		for(int i=0; i < SIZE; i++)
+			for(int j=0; j< SIZE; j++)
+				matrix[i][j] = (int)(Math.random()*SIZE*SIZE + (SIZE/5)*i);  //fill matrix by random values
+		System.out.println("initial matrix:");
+		printMatrix(matrix);
 		long start = System.currentTimeMillis();  //made some benchmark
 		int row = 0, col = 0;
 		int currentElementValue =  Integer.MIN_VALUE;
