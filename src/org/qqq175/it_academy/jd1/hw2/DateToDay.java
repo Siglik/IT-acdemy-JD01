@@ -39,7 +39,7 @@ public class DateToDay {
 		input.close();
 		 //change modern calendar to calendar that is begin from march
 		int ages = year / 100;
-		year = year % 100;
+		year = year % 100 - (14 - month) / 12;
 		month = (month + 9) % 12 + 1;  
 		
 		int dayNumber = (day + ((13*month -1)/5) + year +  (year/4) +  (ages/4) -2*ages +777) % 7 ;
