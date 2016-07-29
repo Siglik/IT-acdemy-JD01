@@ -11,20 +11,20 @@ import org.qqq175.it_academy.jd1.airline.airplanes.CargoAircraft;
 import org.qqq175.it_academy.jd1.airline.dbengine.*;
 
 /**
+ * Main class of AirlineMaganer
+ * contains class Menu, that provide user interface
  * @author qqq175
- *
  */
 class AirlineManager {
 	static String dbName = "airplanes";
 	static String dbPath = "airplanes.dat";
 
 	/**
+	 * main method
+	 * initialize DB connection and start menu
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
-		Airliner ai = new Airliner("qqq", 1, 2, 5, 6);
-		System.out.println(ai);
 		try {
 			AirplanesDB.openDB(dbName, dbPath);
 		} catch (DuplicateKeysException e) {
@@ -37,7 +37,11 @@ class AirlineManager {
 		}
 		Menu.show();
 	}
-
+	/**
+	 * class that provide user interface
+	 * @author user
+	 *
+	 */
 	private static class Menu {
 		// start menu from here
 		private static AirplanesDB db;
@@ -55,7 +59,9 @@ class AirlineManager {
 			db.close();
 		}
 
-		// menuItemIndex - default 0
+		/**
+		 * menu root class
+		 */
 		private static void mainMenu() {
 			int menuItemIndex = -1;
 			do {
@@ -97,7 +103,10 @@ class AirlineManager {
 				}
 			} while (menuItemIndex != 0);
 		}
-
+		
+		/**
+		 * filter DB by range of fuel compsumtion and print
+		 */
 		private static void showFiltredByFuelCompsumtion() {
 			System.out.print("Введите минимальное потребление топлива, кг/ч: ");
 			double min = input.nextDouble();
@@ -108,7 +117,9 @@ class AirlineManager {
 			System.out.println(db.getTableHeaders());
 			System.out.println(db.getTableRowsFiltredByFuelComsumption(min, max));
 		}
-
+		/**
+		 * request from db total capacity of all airplaners and print it
+		 */
 		private static void showTotalCapacity() {
 			System.out.println("Всего самолетов: " + db.size());
 			System.out.println("Суммарная пассажировместимость: " + db.getTotalSeatCapacity());
@@ -116,12 +127,17 @@ class AirlineManager {
 			System.out.println("Суммарный объем грузового отсека " + db.getTotalCargoCapacity() + " м3");
 		}
 
-
+		/**
+		 * Print the entire DB
+		 */
 		private static void printAll() {
 			System.out.println(db.getTableHeaders());
 			System.out.println(db.getTableRows());
 		}
 
+		/**
+		 * add new airliner or cargo aircraft to database
+		 */
 		private static void addRecordMenu() {
 			Airplane newPlane;
 			System.out.println("Выберите тип самолета:");
@@ -155,7 +171,9 @@ class AirlineManager {
 			}
 			db.addRecord(newPlane);
 		}
-
+		/**
+		 * request sorted DB from DB Engine and print it
+		 */
 		private static void printSortedByDistance() {
 			System.out.println(db.getTableHeaders());
 			System.out.println(db.getTableRowsSortedByRange());

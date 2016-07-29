@@ -3,22 +3,29 @@
  */
 package org.qqq175.it_academy.jd1.airline.airplanes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
+ * Describes airplane that can transport peoples
  * @author qqq175
  *
  */
-public class Airliner extends Airplane {
+public class Airliner extends Airplane implements Boardable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1252752775287L;
 	/** Max passengers can be boarded */
 	private int seatCapacity;
+	/** passenger list */
+	List<Passenger> passengers =  new ArrayList<>();
 
 	/**
 	 * 
 	 */
-	public Airliner() {}
+	public Airliner() {
+	}
 
 	/**
 	 * @param modelName
@@ -27,8 +34,8 @@ public class Airliner extends Airplane {
 	 * @param numberOfCrew
 	 * @param seatCapacity
 	 */
-	public Airliner(String modelName, double fuelCompsumtion, double rangeOfFlight,
-	        int numberOfCrew, int seatCapacity) {
+	public Airliner(String modelName, double fuelCompsumtion,
+			double rangeOfFlight, int numberOfCrew, int seatCapacity) {
 		super(modelName, fuelCompsumtion, rangeOfFlight, numberOfCrew);
 		this.seatCapacity = seatCapacity;
 	}
@@ -41,17 +48,18 @@ public class Airliner extends Airplane {
 	}
 
 	/**
-	 * @param seatCapacity the seatCapacity to set
+	 * @param seatCapacity
+	 *            the seatCapacity to set
 	 */
 	public void setSeatCapacity(int seatCapacity) {
 		this.seatCapacity = seatCapacity;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see org.qqq175.it_academy.jd1.airline.airplanes.Airplane#toStringFieldValues()
 	 */
 
-	/* (non-Javadoc)
+	/**
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -62,7 +70,7 @@ public class Airliner extends Airplane {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -77,6 +85,19 @@ public class Airliner extends Airplane {
 		if (seatCapacity != other.seatCapacity)
 			return false;
 		return true;
+	}
+
+	@Override
+	public void registerNewPassanger(Passenger passanger) {
+		passengers.add(passanger);
+		
+	}
+
+	@Override
+	public void printPassengersList() {
+		for(Passenger passenger : passengers){
+			System.out.println(passenger);
+		}
 	}
 
 }

@@ -1,7 +1,5 @@
 /**
- * 
- */
-/**
+ * Contains airplanes data classes
  * @author qqq175
  *
  */

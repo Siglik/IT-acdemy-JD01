@@ -1,9 +1,6 @@
 package org.qqq175.it_academy.jd1.airline.airplanes;
 
 public class CargoAircraft extends Airplane {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 888816618536216529L;
 	/** Max pay load, tonn */
 	private int payLoad;
@@ -11,7 +8,9 @@ public class CargoAircraft extends Airplane {
 	private int cargoCapacity;
 
 	/**
+	 * Describes airplane that can transport cargo
 	 * 
+	 * @author qqq175
 	 */
 	public CargoAircraft() {
 	}
@@ -24,11 +23,43 @@ public class CargoAircraft extends Airplane {
 	 * @param payLoad
 	 * @param cargoCapacity
 	 */
-	public CargoAircraft(String modelName, double fuelCompsumtion, double rangeOfFlight, int numberOfCrew, int payLoad,
-	        int cargoCapacity) {
+	public CargoAircraft(String modelName, double fuelCompsumtion,
+			double rangeOfFlight, int numberOfCrew, int payLoad,
+			int cargoCapacity) {
 		super(modelName, fuelCompsumtion, rangeOfFlight, numberOfCrew);
 		this.payLoad = payLoad;
 		this.cargoCapacity = cargoCapacity;
+	}
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + cargoCapacity;
+		result = prime * result + payLoad;
+		return result;
+	}
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CargoAircraft other = (CargoAircraft) obj;
+		if (cargoCapacity != other.cargoCapacity)
+			return false;
+		if (payLoad != other.payLoad)
+			return false;
+		return true;
 	}
 
 	/**
@@ -60,40 +91,4 @@ public class CargoAircraft extends Airplane {
 	public void setCargoCapacity(int cargoCapacity) {
 		this.cargoCapacity = cargoCapacity;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + cargoCapacity;
-		result = prime * result + payLoad;
-		return result;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CargoAircraft other = (CargoAircraft) obj;
-		if (cargoCapacity != other.cargoCapacity)
-			return false;
-		if (payLoad != other.payLoad)
-			return false;
-		return true;
-	}
-
 }
