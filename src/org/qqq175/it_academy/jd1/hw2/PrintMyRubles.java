@@ -10,7 +10,6 @@ public class PrintMyRubles {
  * @param args
  */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Scanner input = new Scanner(System.in);
 		System.out.print("Введите сумму в рублях от 1 до 999: ");
 		int sum = input.nextInt();
