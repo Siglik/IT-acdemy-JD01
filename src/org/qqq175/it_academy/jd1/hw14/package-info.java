@@ -1,7 +1,7 @@
+
 /**
- * 
- */
-/**
+ * Realizes supermarket emulation.<br>
+ * <i>Home work 14 - Concurrency</i>
  * @author qqq175
  *
  */

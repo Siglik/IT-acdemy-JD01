@@ -16,8 +16,8 @@ import org.qqq175.it_academy.jd1.airline.dbengine.*;
  * @author qqq175
  */
 class AirlineManager {
-	static String dbName = "airplanes";
-	static String dbPath = "airplanes.dat";
+	final static String DB_NAME = "airplanes";
+	final static String DB_PATH = "resources/org/qqq175/it_academy/jd1/airline/airplanes.dat";
 
 	/**
 	 * main method
@@ -26,7 +26,7 @@ class AirlineManager {
 	 */
 	public static void main(String[] args) {
 		try {
-			AirplanesDB.openDB(dbName, dbPath);
+			AirplanesDB.openDB(DB_NAME, DB_PATH);
 		} catch (DuplicateKeysException e) {
 			System.out.println(e.getMessage());
 			return;
@@ -49,7 +49,7 @@ class AirlineManager {
 
 		static void show() {
 			try {
-				db = AirplanesDB.getInstance(dbName);
+				db = AirplanesDB.getInstance(DB_NAME);
 			} catch (KeyIsNotExistException e) {
 				System.out.println(e.getMessage());
 				return;
@@ -178,6 +178,5 @@ class AirlineManager {
 			System.out.println(db.getTableHeaders());
 			System.out.println(db.getTableRowsSortedByRange());
 		}
-
 	}
 }
