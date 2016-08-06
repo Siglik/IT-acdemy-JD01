@@ -13,9 +13,13 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 import org.qqq175.it_academy.jd1.airline.airplanes.*;
 
@@ -70,10 +74,9 @@ public class AirplanesDB implements Serializable {
 	 * @throws ClassNotFoundException
 	 */
 	public static AirplanesDB openDB(String dbName, String path)
-			throws DuplicateKeysException, IOException, ClassNotFoundException {
+	        throws DuplicateKeysException, IOException, ClassNotFoundException {
 		if (instances.containsKey(dbName)) {
-			throw new DuplicateKeysException("Key \"" + dbName
-					+ "\" is already exists.");
+			throw new DuplicateKeysException("Key \"" + dbName + "\" is already exists.");
 		}
 		File dbFile = new File(path);
 		dbFile.createNewFile(); // if db isn't exist create new
@@ -92,13 +95,11 @@ public class AirplanesDB implements Serializable {
 	 * @return
 	 * @throws KeyIsNotExistException
 	 */
-	public static AirplanesDB getInstance(String dbName)
-			throws KeyIsNotExistException {
+	public static AirplanesDB getInstance(String dbName) throws KeyIsNotExistException {
 		if (instances.containsKey(dbName)) {
 			return instances.get(dbName);
 		} else {
-			throw new KeyIsNotExistException("Key \"" + dbName
-					+ "\" isn't exists.");
+			throw new KeyIsNotExistException("Key \"" + dbName + "\" isn't exists.");
 		}
 	}
 
@@ -127,7 +128,7 @@ public class AirplanesDB implements Serializable {
 		try {
 			this.save();
 		} catch (IOException e) {
-			System.out.println("Ошибка при сохранении базы данных.");
+			System.out.println("Ошибка при сохранении базы данных."); // logger
 		}
 		instances.remove(this.name);
 	}
@@ -221,12 +222,13 @@ public class AirplanesDB implements Serializable {
 	 * 
 	 * @return table header
 	 */
-	public String getTableHeaders() {
-		String result = String
-				.format("%1$-20s | %2$-12s | %3$-20s | %4$-6s | %5$-20s | %6$-15s | %7$-25s",
-						"Модель", "Расход, кг/ч", "Дальность полета, км",
-						"Экипаж", "Пассажировместимость", "Вместимость, м3",
-						"Коммерческая нагрузка, т.");
+	public String getTableHeaders(Locale locale) {
+		ResourceBundle rows = ResourceBundle.getBundle("org.qqq175.it_academy.jd1.airline.i10n.MessagesBundle", locale);
+		String result = String.format("%1$-20s | %2$24s | %3$20s | %4$6s | %5$21s | %6$17s | %7$25s",
+		        rows.getString("Airplane.modelName"), rows.getString("Airplane.fuelCompsumtion"),
+		        rows.getString("Airplane.rangeOfFlight"), rows.getString("Airplane.numberOfCrew"),
+		        rows.getString("Airliner.seatCapacity"), rows.getString("CargoAircraft.cargoCapacity"),
+		        rows.getString("CargoAircraft.payLoad"));
 		return result;
 	}
 
@@ -250,66 +252,71 @@ public class AirplanesDB implements Serializable {
 	}
 
 	/**
-	 * Return DB rows sorted by max flight range as a String (all tale except
-	 * header)
+	 * Return DB rows filtrated with mask
+	 * 
+	 * @param mask
+	 * @return
+	 */
+	public String getFiltredTableRows(Predicate<Airplane> mask) {
+		return this.filter(mask).getTableRows();
+	}
+
+	/**
+	 * return new temporary DB table filtraded with mask.
+	 * 
+	 * @param mask
+	 * @return
+	 */
+	private AirplanesDB filter(Predicate<Airplane> mask) {
+		AirplanesDB tempDB = new AirplanesDB("tmp", "");
+		for (Airplane plane : this.dbRecords) {
+			if (mask.test(plane)) {
+				tempDB.dbRecords.add(plane);
+			}
+		}
+		return tempDB;
+	}
+
+	/**
+	 * Return DB rows sorted by comparator order
 	 * 
 	 * @return String that contains all rows
 	 * @return
 	 */
-	public String getTableRowsSortedByRange() {
+	public String getSortedTableRows(Comparator<Airplane> comparator) {
 		AirplanesDB tempDB = new AirplanesDB("tmp", "");
 		for (Airplane plane : this.dbRecords) {
 			tempDB.dbRecords.add(plane);
 		}
 
-		Collections.sort(tempDB.dbRecords,
-				(new Airliner()).getComparatorByRange());
+		Collections.sort(tempDB.dbRecords, comparator);
 
 		return tempDB.getTableRows();
 	}
-	/**
-	 * Return DB rows filtrated by fuel comsumption range(min to max) as a String (all tale except
-	 * header)
-	 * @param min - min fuel comsumption
-	 * @param max - max fuel comsumption
-	 * @return
-	 */
-	public String getTableRowsFiltredByFuelComsumption(double min, double max) {
-		AirplanesDB tempDB = new AirplanesDB("tmp", "");
-		for (Airplane plane : this.dbRecords) {
-			double curFC = plane.getFuelCompsumtion();
-			if (curFC >= min && curFC <= max) {
-				tempDB.dbRecords.add(plane);
-			}
-		}
 
-		return tempDB.getTableRows();
-	}
 	/**
 	 * return Airliner object like a table row
+	 * 
 	 * @param plane
 	 * @return
 	 */
 	private String reccordToTableRow(Airliner plane) {
-		String result = String
-				.format("%1$-20s | %2$-12.1f | %3$-20.1f | %4$-6d | %5$-20d | %6$-15s | %7$-25s",
-						plane.getModelName(), plane.getFuelCompsumtion(),
-						plane.getRangeOfFlight(), plane.getNumberOfCrew(),
-						plane.getSeatCapacity(), "  -  ", "  -  ");
+		String result = String.format("%1$-20s | %2$24.1f | %3$20d | %4$6d | %5$21d | %6$17s | %7$25s",
+		        plane.getModelName(), plane.getFuelCompsumtion(), plane.getRangeOfFlight(), plane.getNumberOfCrew(),
+		        plane.getSeatCapacity(), "  -  ", "  -  ");
 		return result;
 	}
 
 	/**
 	 * return CargoAircraft object like a table row
+	 * 
 	 * @param plane
 	 * @return
 	 */
 	private String reccordToTableRow(CargoAircraft plane) {
-		String result = String
-				.format("%1$-20s | %2$-12.1f | %3$-20.1f | %4$-6d | %5$-20s | %6$-15d | %7$-25d",
-						plane.getModelName(), plane.getFuelCompsumtion(),
-						plane.getRangeOfFlight(), plane.getNumberOfCrew(),
-						"  -  ", plane.getCargoCapacity(), plane.getPayLoad());
+		String result = String.format("%1$-20s | %2$24.1f | %3$20d | %4$6d | %5$21s | %6$17d | %7$25d",
+		        plane.getModelName(), plane.getFuelCompsumtion(), plane.getRangeOfFlight(), plane.getNumberOfCrew(),
+		        "  -  ", plane.getCargoCapacity(), plane.getPayLoad());
 		return result;
 	}
 }

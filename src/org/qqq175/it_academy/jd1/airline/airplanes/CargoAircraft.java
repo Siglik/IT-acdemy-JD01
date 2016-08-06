@@ -24,7 +24,7 @@ public class CargoAircraft extends Airplane {
 	 * @param cargoCapacity
 	 */
 	public CargoAircraft(String modelName, double fuelCompsumtion,
-			double rangeOfFlight, int numberOfCrew, int payLoad,
+			int rangeOfFlight, int numberOfCrew, int payLoad,
 			int cargoCapacity) {
 		super(modelName, fuelCompsumtion, rangeOfFlight, numberOfCrew);
 		this.payLoad = payLoad;

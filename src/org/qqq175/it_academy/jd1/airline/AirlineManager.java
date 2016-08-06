@@ -3,6 +3,8 @@
  */
 package org.qqq175.it_academy.jd1.airline;
 
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import org.qqq175.it_academy.jd1.airline.airplanes.Airliner;
@@ -11,8 +13,8 @@ import org.qqq175.it_academy.jd1.airline.airplanes.CargoAircraft;
 import org.qqq175.it_academy.jd1.airline.dbengine.*;
 
 /**
- * Main class of AirlineMaganer
- * contains class Menu, that provide user interface
+ * Main class of AirlineMaganer contains class Menu, that provide user interface
+ * 
  * @author qqq175
  */
 class AirlineManager {
@@ -20,8 +22,8 @@ class AirlineManager {
 	final static String DB_PATH = "resources/org/qqq175/it_academy/jd1/airline/airplanes.dat";
 
 	/**
-	 * main method
-	 * initialize DB connection and start menu
+	 * main method initialize DB connection and start menu
+	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
@@ -31,49 +33,85 @@ class AirlineManager {
 			System.out.println(e.getMessage());
 			return;
 		} catch (Exception e) {
-			System.out.println("Ошибка при открытии базы данных");
+			System.out.println("DB opening error.");
 			e.printStackTrace();
 			return;
 		}
-		Menu.show();
+		Menu menu = new AirlineManager().new Menu(DB_NAME);
+		menu.show();
 	}
+
 	/**
 	 * class that provide user interface
+	 * 
 	 * @author user
 	 *
 	 */
-	private static class Menu {
+	private class Menu {
 		// start menu from here
-		private static AirplanesDB db;
-		private static Scanner input;
+		private AirplanesDB db;
+		private final Locale locale;
+		ResourceBundle messages;
 
-		static void show() {
+		/**
+		 * Create menu to work with menu
+		 * 
+		 * @param db
+		 */
+		public Menu(String dbName) {
 			try {
 				db = AirplanesDB.getInstance(DB_NAME);
 			} catch (KeyIsNotExistException e) {
 				System.out.println(e.getMessage());
-				return;
 			}
 			input = new Scanner(System.in);
+			locale = askLocale();
+			messages = ResourceBundle.getBundle("org.qqq175.it_academy.jd1.airline.i10n.MessagesBundle", locale);
+		}
+
+		private Scanner input;
+
+		void show() {
 			mainMenu();
 			db.close();
+		}
+
+		private Locale askLocale() {
+			System.out.println("Please choose your language:");
+			System.out.println("\t1 - English");
+			System.out.println("\t2 - Русский язык");
+			System.out.println("\t3 - Беларуская мова");
+			int localeCode = input.nextInt();
+			Locale locale;
+			switch (localeCode) {
+			case 2:
+				locale = new Locale("ru", "RU");
+				break;
+			case 3:
+				locale = new Locale("be", "BY");
+				break;
+			case 1:
+			default:
+				locale = new Locale("en", "US");
+			}
+			return locale;
 		}
 
 		/**
 		 * menu root class
 		 */
-		private static void mainMenu() {
+		private void mainMenu() {
 			int menuItemIndex = -1;
 			do {
 				switch (menuItemIndex) {
 				case -1:
-					System.out.println("Выберите действие:");
-					System.out.println("\t1 - Показать все самолеты");
-					System.out.println("\t3 - Добавить самолет");
-					System.out.println("\t4 - Суммарная вместимость");
-					System.out.println("\t5 - Сортировка по дальности полета");
-					System.out.println("\t6 - Подбор по расходу топлива");
-					System.out.println("\t0 - Выход из программы");
+					System.out.println(messages.getString("Menu.choose_action"));
+					System.out.println("\t1 - " + messages.getString("Menu.showAllPlanes"));
+					System.out.println("\t3 - " + messages.getString("Menu.addPlane"));
+					System.out.println("\t4 - " + messages.getString("Menu.totalCapacity"));
+					System.out.println("\t5 - " + messages.getString("Menu.sortByFlightRange"));
+					System.out.println("\t6 - " + messages.getString("Menu.filterByFuelCompsumtion"));
+					System.out.println("\t0 - " + messages.getString("Menu.exit"));
 					menuItemIndex = input.nextInt();
 					break;
 				case 0:
@@ -103,80 +141,89 @@ class AirlineManager {
 				}
 			} while (menuItemIndex != 0);
 		}
-		
+
 		/**
 		 * filter DB by range of fuel compsumtion and print
 		 */
-		private static void showFiltredByFuelCompsumtion() {
-			System.out.print("Введите минимальное потребление топлива, кг/ч: ");
+		private void showFiltredByFuelCompsumtion() {
+			System.out.print(messages.getString("Menu.inputMinFuelCompsumtion"));
 			double min = input.nextDouble();
-			System.out.print("Введите максимальное потребление топлива, кг/ч: ");;
+			System.out.print(messages.getString("Menu.inputMaxFuelCompsumtion"));
+			;
 			double max = input.nextDouble();
-			
 
-			System.out.println(db.getTableHeaders());
-			System.out.println(db.getTableRowsFiltredByFuelComsumption(min, max));
+			System.out.println(db.getTableHeaders(locale));
+			// using lambdas to filter
+			System.out.println(
+			        db.getFiltredTableRows(ap -> ap.getFuelCompsumtion() <= max 
+			                                     && ap.getFuelCompsumtion() >= min));
 		}
+
 		/**
 		 * request from db total capacity of all airplaners and print it
 		 */
-		private static void showTotalCapacity() {
-			System.out.println("Всего самолетов: " + db.size());
-			System.out.println("Суммарная пассажировместимость: " + db.getTotalSeatCapacity());
-			System.out.println("Суммарная коммерческая нагрузка: " + db.getTotalPayLoad() + " тонн");
-			System.out.println("Суммарный объем грузового отсека " + db.getTotalCargoCapacity() + " м3");
+		private void showTotalCapacity() {
+			System.out.println(messages.getString("Menu.numberOfPlanes") + db.size());
+			System.out.println(messages.getString("Menu.totalSeatCapacity") + db.getTotalSeatCapacity());
+			System.out.println(messages.getString("Menu.totalPayload") + db.getTotalPayLoad() + " "
+			        + messages.getString("Menu.totalPayload.units"));
+			System.out.println(messages.getString("Menu.totalCargoCapacity") + db.getTotalCargoCapacity() + " "
+			        + messages.getString("Menu.totalCargoCapacity.units"));
 		}
 
 		/**
 		 * Print the entire DB
 		 */
-		private static void printAll() {
-			System.out.println(db.getTableHeaders());
+		private void printAll() {
+			System.out.println(db.getTableHeaders(locale));
 			System.out.println(db.getTableRows());
 		}
 
 		/**
 		 * add new airliner or cargo aircraft to database
 		 */
-		private static void addRecordMenu() {
+		private void addRecordMenu() {
 			Airplane newPlane;
 			System.out.println("Выберите тип самолета:");
-			System.out.println("\t1 - Пассажирский");
-			System.out.println("\t2 - Грузовой");
+			System.out.println("\t1 - " + messages.getString("Airliner.type"));
+			System.out.println("\t2 - " + messages.getString("CargoAircraft.type"));
 			int in = input.nextInt();
 			if (in == 1) {
 				newPlane = new Airliner();
 			} else if (in == 2) {
 				newPlane = new CargoAircraft();
 			} else {
-				System.out.println("Неверный ввод.");
+				System.out.println(messages.getString("Menu.wrongInput"));
 				return;
 			}
-			System.out.println("Модель: ");
-			newPlane.setModelName(input.next()+input.nextLine());
-			System.out.print("Расход, кг/ч: ");
+			System.out.println(messages.getString("Airplane.modelName") + ": ");
+			newPlane.setModelName(input.next() + input.nextLine());
+			System.out.print(messages.getString("Airplane.fuelCompsumtion") + ": ");
 			newPlane.setFuelCompsumtion(input.nextDouble());
-			System.out.print("Дальность полета, км: ");
-			newPlane.setRangeOfFlight(input.nextDouble());
-			System.out.print("Экипаж, чел.: ");
+			System.out.print(messages.getString("Airplane.rangeOfFlight") + ": ");
+			newPlane.setRangeOfFlight(input.nextInt());
+			System.out.print(messages.getString("Airplane.numberOfCrew") + ": ");
 			newPlane.setNumberOfCrew(input.nextInt());
 			if (in == 1) {
-				System.out.print("Пассажировместимость, чел.: ");
+				System.out.print(messages.getString("Airliner.seatCapacity") + ": ");
 				((Airliner) newPlane).setSeatCapacity(input.nextInt());
 			} else if (in == 2) {
-				System.out.print("Вместимость, м3: ");
+				System.out.print(messages.getString("CargoAircraft.cargoCapacity") + ": ");
 				((CargoAircraft) newPlane).setCargoCapacity(input.nextInt());
-				System.out.print("Коммерческая нагрузка, т.: ");
+				System.out.print(messages.getString("CargoAircraft.payLoad") + ": ");
 				((CargoAircraft) newPlane).setPayLoad(input.nextInt());
 			}
 			db.addRecord(newPlane);
 		}
+
 		/**
 		 * request sorted DB from DB Engine and print it
 		 */
-		private static void printSortedByDistance() {
-			System.out.println(db.getTableHeaders());
-			System.out.println(db.getTableRowsSortedByRange());
+		private void printSortedByDistance() {
+			System.out.println(db.getTableHeaders(locale));
+			// using lambda to sort
+			System.out.println(
+			        db.getSortedTableRows((left, right) -> (int) (left.getRangeOfFlight() - right.getRangeOfFlight())));
 		}
 	}
 }

@@ -4,7 +4,6 @@
 package org.qqq175.it_academy.jd1.airline.airplanes;
 
 import java.io.Serializable;
-import java.util.Comparator;
 
 /**
  * abstract class that describes common airplanes characteristics and methods
@@ -28,7 +27,7 @@ public abstract class Airplane implements Serializable {
 	/**
 	 * max range of flight, km
 	 */
-	private double rangeOfFlight;
+	private int rangeOfFlight;
 	/**
 	 * number of crew members
 	 */
@@ -48,7 +47,7 @@ public abstract class Airplane implements Serializable {
 	 * @param numberOfCrew
 	 */
 	public Airplane(String modelName, double fuelCompsumtion,
-			double rangeOfFlight, int numberOfCrew) {
+			int rangeOfFlight, int numberOfCrew) {
 		this.modelName = modelName;
 		this.fuelCompsumtion = fuelCompsumtion;
 		this.rangeOfFlight = rangeOfFlight;
@@ -101,32 +100,32 @@ public abstract class Airplane implements Serializable {
 		return true;
 	}
 
-	/**
-	 * returns airplane comparatir by max flight range
-	 * 
-	 * @return
-	 */
-	public Comparator<Airplane> getComparatorByRange() {
-		return new flightRangeComparator();
-	}
-
-	/**
-	 * airplane comparator by range
-	 * 
-	 * @author qqq175
-	 *
-	 */
-	class flightRangeComparator implements Comparator<Airplane> {
-		@Override
-		public int compare(Airplane right, Airplane left) {
-			if (right.rangeOfFlight > left.rangeOfFlight) {
-				return 1;
-			} else if (right.rangeOfFlight < left.rangeOfFlight) {
-				return -1;
-			}
-			return 0;
-		}
-	}
+//	/**
+//	 * returns airplane comparator by max flight range
+//	 * 
+//	 * @return
+//	 */
+//	public Comparator<Airplane> getComparatorByRange() {
+//		return new flightRangeComparator();
+//	}
+//
+//	/**
+//	 * airplane comparator by range
+//	 * 
+//	 * @author qqq175
+//	 *
+//	 */
+//	class flightRangeComparator implements Comparator<Airplane> {
+//		@Override
+//		public int compare(Airplane right, Airplane left) {
+//			if (right.rangeOfFlight > left.rangeOfFlight) {
+//				return 1;
+//			} else if (right.rangeOfFlight < left.rangeOfFlight) {
+//				return -1;
+//			}
+//			return 0;
+//		}
+//	}
 
 	/**
 	 * @return the modelName
@@ -161,7 +160,7 @@ public abstract class Airplane implements Serializable {
 	/**
 	 * @return the rangeOfFlight
 	 */
-	public double getRangeOfFlight() {
+	public int getRangeOfFlight() {
 		return rangeOfFlight;
 	}
 
@@ -169,7 +168,7 @@ public abstract class Airplane implements Serializable {
 	 * @param rangeOfFlight
 	 *            the rangeOfFlight to set
 	 */
-	public void setRangeOfFlight(double rangeOfFlight) {
+	public void setRangeOfFlight(int rangeOfFlight) {
 		this.rangeOfFlight = rangeOfFlight;
 	}
 

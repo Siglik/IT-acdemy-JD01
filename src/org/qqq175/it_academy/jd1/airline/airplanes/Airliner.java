@@ -22,7 +22,7 @@ public class Airliner extends Airplane implements Boardable {
 	List<Passenger> passengers =  new ArrayList<>();
 
 	/**
-	 * 
+	 * Constructor
 	 */
 	public Airliner() {
 	}
@@ -35,7 +35,7 @@ public class Airliner extends Airplane implements Boardable {
 	 * @param seatCapacity
 	 */
 	public Airliner(String modelName, double fuelCompsumtion,
-			double rangeOfFlight, int numberOfCrew, int seatCapacity) {
+			int rangeOfFlight, int numberOfCrew, int seatCapacity) {
 		super(modelName, fuelCompsumtion, rangeOfFlight, numberOfCrew);
 		this.seatCapacity = seatCapacity;
 	}
