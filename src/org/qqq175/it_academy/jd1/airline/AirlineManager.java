@@ -3,6 +3,8 @@
  */
 package org.qqq175.it_academy.jd1.airline;
 
+import java.util.Date;
+import java.text.DateFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
@@ -52,7 +54,8 @@ class AirlineManager {
 		// start menu from here
 		private AirplanesDB db;
 		private final Locale locale;
-		ResourceBundle messages;
+		private ResourceBundle messages;
+		private DateFormat dateFormat;
 
 		/**
 		 * Create menu to work with menu
@@ -68,6 +71,7 @@ class AirlineManager {
 			input = new Scanner(System.in);
 			locale = askLocale();
 			messages = ResourceBundle.getBundle("org.qqq175.it_academy.jd1.airline.i10n.MessagesBundle", locale, new UTF8Control());
+			dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		}
 
 		private Scanner input;
@@ -104,6 +108,8 @@ class AirlineManager {
 		private void mainMenu() {
 			int menuItemIndex = -1;
 			do {
+				Date currentDate = new Date();
+				System.out.println(dateFormat.format(currentDate));
 				switch (menuItemIndex) {
 				case -1:
 					System.out.println(messages.getString("Menu.choose_action"));
