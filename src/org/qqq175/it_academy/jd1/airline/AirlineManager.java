@@ -20,7 +20,7 @@ import org.qqq175.it_academy.jd1.airline.i18n.UTF8Control;
  * 
  * @author qqq175
  */
-class AirlineManager {
+public class AirlineManager {
 	final static String DB_NAME = "airplanes";
 	final static String DB_PATH = "resources/org/qqq175/it_academy/jd1/airline/airplanes.dat";
 
