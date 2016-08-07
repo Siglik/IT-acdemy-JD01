@@ -11,6 +11,7 @@ import org.qqq175.it_academy.jd1.airline.airplanes.Airliner;
 import org.qqq175.it_academy.jd1.airline.airplanes.Airplane;
 import org.qqq175.it_academy.jd1.airline.airplanes.CargoAircraft;
 import org.qqq175.it_academy.jd1.airline.dbengine.*;
+import org.qqq175.it_academy.jd1.airline.i18n.UTF8Control;
 
 /**
  * Main class of AirlineMaganer contains class Menu, that provide user interface
@@ -66,7 +67,7 @@ class AirlineManager {
 			}
 			input = new Scanner(System.in);
 			locale = askLocale();
-			messages = ResourceBundle.getBundle("org.qqq175.it_academy.jd1.airline.i10n.MessagesBundle", locale);
+			messages = ResourceBundle.getBundle("org.qqq175.it_academy.jd1.airline.i10n.MessagesBundle", locale, new UTF8Control());
 		}
 
 		private Scanner input;

@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
 import org.qqq175.it_academy.jd1.airline.airplanes.*;
+import org.qqq175.it_academy.jd1.airline.i18n.UTF8Control;
 
 /**
  * operates with airplanes
@@ -223,7 +224,7 @@ public class AirplanesDB implements Serializable {
 	 * @return table header
 	 */
 	public String getTableHeaders(Locale locale) {
-		ResourceBundle rows = ResourceBundle.getBundle("org.qqq175.it_academy.jd1.airline.i10n.MessagesBundle", locale);
+		ResourceBundle rows = ResourceBundle.getBundle("org.qqq175.it_academy.jd1.airline.i10n.MessagesBundle", locale, new UTF8Control());
 		String result = String.format("%1$-20s | %2$24s | %3$20s | %4$6s | %5$21s | %6$17s | %7$25s",
 		        rows.getString("Airplane.modelName"), rows.getString("Airplane.fuelCompsumtion"),
 		        rows.getString("Airplane.rangeOfFlight"), rows.getString("Airplane.numberOfCrew"),
