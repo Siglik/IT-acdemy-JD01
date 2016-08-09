@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  * @author qqq175
  *
  */
-public class HtmlTegReplacer {
+public class HtmlTagReplacer {
 
 	/**
 	 * @param args
