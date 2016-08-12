@@ -1,0 +1,22 @@
+[2016-08-12 03:11:42] - User choose English
+[2016-08-12 03:11:42] - User enter in main menu.
+[2016-08-12 03:11:44] - User enter 1 (Menu.showAllPlanes)
+[2016-08-12 03:11:44] - User enter in main menu.
+[2016-08-12 03:11:45] - User enter 0 (Menu.exit)
+[2016-08-12 03:12:24] - User choose Russian
+[2016-08-12 03:12:24] - User enter in main menu.
+[2016-08-12 03:12:27] - ERROR: Wrong user choice
+[2016-08-12 03:12:27] - User enter in main menu.
+[2016-08-12 03:12:28] - ERROR: Wrong user choice
+[2016-08-12 03:12:28] - User enter in main menu.
+[2016-08-12 03:12:29] - User enter 0 (Menu.exit)
+[2016-08-12 03:12:35] - User choose Belarussian
+[2016-08-12 03:12:35] - User enter in main menu.
+[2016-08-12 03:12:38] - User enter 6 (Menu.filterByFuelCompsumtion)
+[2016-08-12 03:12:46] - User searching arirplanes with fuel consumption from 5000.0 to 12300.0
+[2016-08-12 03:12:46] - User enter in main menu.
+[2016-08-12 03:12:50] - User enter 4 (Menu.totalCapacity)
+[2016-08-12 03:12:50] - User enter in main menu.
+[2016-08-12 03:12:53] - User enter 5 (Menu.sortByFlightRange)
+[2016-08-12 03:12:53] - User enter in main menu.
+[2016-08-12 03:12:55] - User enter 0 (Menu.exit)

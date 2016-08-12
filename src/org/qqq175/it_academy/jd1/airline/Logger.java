@@ -48,7 +48,7 @@ public class Logger {
 		/*create log writers */
 		try {
 			errorLog = new BufferedWriter(new FileWriter(errorLogFile, true));
-			actionLog = new BufferedWriter(new FileWriter(actionLogFile));
+			actionLog = new BufferedWriter(new FileWriter(actionLogFile, true));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
