@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<greenhouse>
+	<plant name="Яблоня" origin="Россия">
+		<soil>подзолистая</soil>
+		<visualParameters color="красный" size="300"/>
+		<growingTips temperature="25" watering="10000"/>
+		<multiplying>черенок</multiplying>
+	</plant>
+	<plant name="Роза" origin="Голландия">
+		<soil>грунтовая</soil>
+		<visualParameters color="желтый" size="80"/>
+		<growingTips temperature="21" watering="300"/>
+		<multiplying>черенок</multiplying>
+	</plant>
+</greenhouse>

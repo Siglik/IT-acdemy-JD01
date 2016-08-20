@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT studentList (student+)>
+<!ELEMENT student (firstName,lastName, age, faculty)>
+<!ELEMENT firstName (#PCDATA) #REQUIRED>
+<!ELEMENT lastName (#PCDATA) #REQUIRED>
+<!ELEMENT age (#PCDATA) #REQUIRED>
+<!ELEMENT faculty (#PCDATA) #FIXED ksis>
